@@ -1,0 +1,8 @@
+.board {
+    display: grid;
+    /* Definir el número de columnas y filas que deseas */
+    grid-template-columns: repeat(5, 1fr); /* Esto crea 4 columnas */
+    grid-gap: 10px; /* Espacio entre cada celda del grid */
+    max-width: 50%;
+    margin: 30px auto;
+}

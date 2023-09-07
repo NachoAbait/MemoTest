@@ -1,1 +1,45 @@
+.Block{
+    cursor: pointer;
+    aspect-ratio: 1/1;
+}
 
+.BlockFront, .BlockBack{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.inner{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d ;
+}
+
+.BlockBack{
+    background-color: crimson;
+    transform: rotateY(180deg);
+    box-shadow: 5px 5px 10px 0px rgb(0 0 0 / 50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 55px;
+}
+
+
+.BlockFront{
+    background-color: aquamarine;
+}
+
+.flipped{
+    transform: rotateY(180deg);
+}
+
+.match{
+    background-color: rgb(21, 225, 21);
+}
