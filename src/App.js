@@ -356,6 +356,7 @@ function App() {
             disabled={flipHability}
           >
             Flip
+            <span className="tooltip">Flip all cards for a short time</span>
           </button>
           <button
             className="hab"
@@ -363,20 +364,10 @@ function App() {
             disabled={matchHability}
           >
             Random match
+            <span className="tooltip">Match a random pair</span>
           </button>
         </div>
-        {habilitiesDescription ? (
-          <div className="description">
-            <p>
-              <span className="span">Flip: </span>Flip all cards for a short
-              time
-            </p>
-            <hr></hr>
-            <p>
-              <span className="span">Random Match: </span>Match a random pair
-            </p>
-          </div>
-        ) : null}
+        
         <button className="restart" onClick={HandleClick}>
           {" "}
           Restart
