@@ -220,6 +220,10 @@
   pointer-events: none; /* Asegura que el tooltip no interfiera con otros eventos del mouse */
 }
 
+.hab{
+  position: relative;
+}
+
 .hab:hover .tooltip {
   visibility: visible; /* Muestra el tooltip cuando se pasa el mouse por encima */
   opacity: 1;         /* Hace al tooltip totalmente visible */
