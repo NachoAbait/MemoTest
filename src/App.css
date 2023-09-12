@@ -218,6 +218,7 @@
   opacity: 0;         /* Hace al tooltip totalmente transparente por defecto */
   transition: opacity 0.3s;  /* Efecto de transición al mostrar/ocultar */
   pointer-events: none; /* Asegura que el tooltip no interfiera con otros eventos del mouse */
+  width: 150%;
 }
 
 .hab{
