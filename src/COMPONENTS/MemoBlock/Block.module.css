@@ -33,9 +33,9 @@
 
 
 .BlockFront{
-    background-color: aquamarine;
+    background-color: rgb(18, 19, 20);
 }
-
+/*background-color: rgb(228, 171, 16);*/
 .flipped{
     transform: rotateY(180deg);
 }

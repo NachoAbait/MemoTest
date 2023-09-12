@@ -1,6 +1,13 @@
 .container{
   display: flex;
   position: relative;
+  align-items: center;
+  background-image: url("https://img.freepik.com/free-vector/restaurant-mural-wallpaper_23-2148703851.jpg?w=1060&t=st=1694530141~exp=1694530741~hmac=b182eb2f1187c1ac1f6cab4ba2d3aecf890ac04b55ad935fc2a7254d52c18c16");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
+    
 }
 
 .win-message{
@@ -16,6 +23,11 @@
     justify-content: center;
     text-align: center;
     border: solid 5px white;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.726);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: white;
 }
 
 .win-message button{
@@ -25,6 +37,14 @@
   justify-content: center;
   text-align: center;
   cursor: pointer;
+  background-color: rgb(3, 3, 3);
+  font-weight: bold;
+  font-size: large;
+  border: solid 2px;
+  color: white;
+}
+.win-message button:hover{
+  transform: scale(1.1)
 }
 
 .main {
@@ -34,7 +54,7 @@
   align-items: center;     /* Centrar verticalmente */
   height: 100vh;    
   width: 70%;       /* Asegurarte de que tenga una altura completa */
-  background-color: black;
+  justify-content: center;
 }
 
 
@@ -42,10 +62,14 @@
   position: relative;
   display: flex;
   justify-content: center;
-  background-color: brown;
-  width: 30%;
-  height: 100vh;
+  width: 25%;
+  height: 80vh;
   flex-wrap: wrap;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 3px solid rgba(255, 255, 255, 0.2);
 }
 
 .crono{
@@ -87,6 +111,10 @@
   text-align: center;
   align-items: center;
   cursor: pointer;
+  background-color: rgb(228, 171, 16);
+  font-weight: bold;
+  font-size: large;
+  border: solid 2px;
 }
 
 .habilities{
@@ -106,8 +134,8 @@
 }
 
 .habilities button{
-  height: 50px;
-  width: 30%;
+  height: 60px;
+  width: 40%;
   margin-right: 10px;
   padding: 10px;
   border-radius: 10px;
@@ -115,6 +143,10 @@
   text-align: center;
   align-items: center;
   cursor: pointer;
+  background-color: rgb(228, 171, 16);
+  font-weight: bold;
+  font-size: large;
+  border: solid 2px;
 }
 
 .restart{
@@ -126,4 +158,46 @@
   text-align: center;
   cursor: pointer;
   margin-top: 20%;
+  background-color: red;
+  font-weight: bold;
+  font-size: large;
+  border: solid 3px;
+  transition: ease;
+}
+
+.restart:hover{
+  transform: scale(1.1)
+}
+
+.rojo{
+  color: red;
+}
+
+.lupa{
+  cursor: pointer;
+}
+
+.span{
+  font-weight: bold;
+}
+
+.description{
+  position: absolute;
+  border-radius: 10px;
+  background-color: rgba(240, 248, 255, 0.61);
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 310px;
+}
+
+.description p{
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  font-size: larger;
+}
+
+.active{
+  background-color: rgb(0, 0, 0) !important;
+  color: white;
 }

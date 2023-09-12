@@ -7,9 +7,25 @@ import winnerSound from "./sounds/success-1-6297.mp3";
 import errorSound from "./sounds/error-126627.mp3";
 import matchHabilitySound from "./sounds/correct-6033.mp3";
 import flipHabilitySound from "./sounds/pageturn-102978.mp3";
+import secondsSound from "./sounds/clock-clock-sound-clock-clock-time-10343.mp3";
+import loseSound from "./sounds/negative_beeps-6008.mp3";
+import resetSound from "./sounds/shuffle-cards-46455.mp3";
 
 function App() {
-  const emojis = [..."🎁🎟🎄🎀🎗🎃🧧🎡🛒👕"];
+  const emojis = [..."🍕🍔🍟🌭🍗🥩🥟🍤🥓🥚"];
+  const extraEmojisMedium = ["🍉", "🍓", "🍌", "🍇"];
+  const extraEmojisHard = [
+    "🍉",
+    "🍓",
+    "🍌",
+    "🍇",
+    "🌶",
+    "🥕",
+    "🥑",
+    "🍆",
+    "🍎",
+    "🥥",
+  ];
   const [shuffleMemoBlocks, setShuffleMemoBlocks] = useState([]); // State with shuffle blocks
   const [selectedBlock, setSelectedBlock] = useState(null);
   const [animating, setAnimating] = useState(false);
@@ -20,15 +36,24 @@ function App() {
   const [complete, setComplete] = useState(false);
   const [flipHability, setFlipHability] = useState(false);
   const [matchHability, setMatchHability] = useState(false);
+  const [difficult, setDifficult] = useState("easy");
+  const [habilitiesDescription, setHabilitiesDescription] = useState(false);
 
   useEffect(() => {
-    const suffleList = shuffleArray([...emojis, ...emojis]); // Funtion for get the complete shuffle emoji list (array x2)
+    let gameEmojis = [...emojis];
+    if (difficult === "medium") {
+      gameEmojis = [...gameEmojis, ...extraEmojisMedium];
+    } else if (difficult === "hard") {
+      gameEmojis = [...gameEmojis, ...extraEmojisHard];
+    }
+
+    const suffleList = shuffleArray([...gameEmojis, ...gameEmojis]); // Funtion for get the complete shuffle emoji list (array x2)
     setShuffleMemoBlocks(
       suffleList.map(
         (emoji, index) => ({ index, emoji, flipped: false }) // Set the list state with the shuffle blocks (each with props flipped and index)
       )
     );
-  }, []);
+  }, [difficult]);
 
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -39,6 +64,10 @@ function App() {
   };
 
   const handleMemoClick = (block) => {
+    if (winMessage || loseMessage) {
+      return; // Si el juego ha terminado, ya sea por ganar o perder, no proceder con el clic
+    }
+    document.getElementById("trySound").play();
     const flippedBlock = { ...block, flipped: true }; // add flipped prop to the Block
     let shuffleMemoBlocksCopy = [...shuffleMemoBlocks]; // make a copy of shuffleArray
     shuffleMemoBlocksCopy.splice(block.index, 1, flippedBlock); // Swap the block without the flipped prop for the one that has it
@@ -105,7 +134,16 @@ function App() {
   ///////////////////////// TIMER ////////////////////////////////////
   const timerRef = useRef(null);
   useEffect(() => {
+    if (seconds <= 11 && seconds !== 0) {
+      try {
+        document.getElementById("secondsSound").play();
+      } catch (error) {
+        console.error("Error al reproducir el sonido:", error);
+      }
+    }
+
     if (seconds === 0 && complete === false) {
+      document.getElementById("loseSound").play();
       setLoseMessage("Sorry, your time is over!");
     }
 
@@ -118,6 +156,17 @@ function App() {
       return () => clearInterval(timerRef.current);
     }
   }, [seconds, firstAttempt, complete]);
+
+  ////////////// DIFFICULT  ///////////////////////////
+
+  const handleDifficultyChange = (newDifficulty) => {
+    document.getElementById("resetSound").play();
+    setDifficult(newDifficulty);
+    setSeconds(60);
+    setFlipHability(false);
+    setMatchHability(false);
+    setFirstAttempt(false);
+  };
 
   ////////////// HABILITIES ///////////////////////////
 
@@ -143,9 +192,21 @@ function App() {
     }
     setFirstAttempt(true);
     flipAllBlocks();
-    setTimeout(() => {
-      resetAllBlocks();
-    }, 1000);
+
+    if (difficult === "easy") {
+      setTimeout(() => {
+        resetAllBlocks();
+      }, 1000);
+    } else if (difficult === "medium") {
+      setTimeout(() => {
+        resetAllBlocks();
+      }, 2000);
+    } else {
+      setTimeout(() => {
+        resetAllBlocks();
+      }, 3000);
+    }
+
     setFlipHability(true);
   };
 
@@ -184,9 +245,23 @@ function App() {
     setMatchHability(true);
   };
 
+  ///////////////////////////////////////////////////////////
+
+  const handleLupa = () => {
+    setHabilitiesDescription(!habilitiesDescription);
+  };
+
   //////////// RESET / WIN  / LOSE ///////////////////////
   const HandleClick = () => {
-    const suffleList = shuffleArray([...emojis, ...emojis]);
+    document.getElementById("resetSound").play();
+    let gameEmojis = [...emojis];
+    if (difficult === "medium") {
+      gameEmojis = [...gameEmojis, ...extraEmojisMedium];
+    } else if (difficult === "hard") {
+      gameEmojis = [...gameEmojis, ...extraEmojisHard];
+    }
+
+    const suffleList = shuffleArray([...gameEmojis, ...gameEmojis]);
     setShuffleMemoBlocks(
       suffleList.map((emoji, index) => ({ index, emoji, flipped: false }))
     );
@@ -196,6 +271,7 @@ function App() {
     setFirstAttempt(false);
     setFlipHability(false);
     setMatchHability(false);
+    setDifficult(difficult);
   };
 
   //////////////////////////////////////////////////////////////
@@ -205,6 +281,10 @@ function App() {
       <audio id="winnerSound" src={winnerSound} preload="auto"></audio>
       <audio id="trySound" src={trySound} preload="auto"></audio>
       <audio id="errorSound" src={errorSound} preload="auto"></audio>
+      <audio id="secondsSound" src={secondsSound} preload="auto"></audio>
+      <audio id="loseSound" src={loseSound} preload="auto"></audio>
+      <audio id="resetSound" src={resetSound} preload="auto"></audio>
+
       <audio
         id="matchHabilitySound"
         src={matchHabilitySound}
@@ -234,22 +314,41 @@ function App() {
           memoBlocks={shuffleMemoBlocks}
           animating={animating}
           handleMemoClick={handleMemoClick}
+          difficult={difficult}
         ></Board>
       </div>
 
       <div className="sideBar">
-        <div className="crono">{seconds}</div>
+        <div className={`crono ${seconds <= 10 ? "rojo" : ""}`}>{seconds}</div>
 
         <div className="dificult">
           <h2>Difficulty</h2>
-          <button>Easy</button>
-          <button>Medium</button>
-          <button>Hard</button>
+          <button
+            onClick={() => handleDifficultyChange("easy")}
+            className={difficult === "easy" ? "active" : ""}
+          >
+            Easy
+          </button>
+          <button
+            onClick={() => handleDifficultyChange("medium")}
+            className={difficult === "medium" ? "active" : ""}
+          >
+            Medium
+          </button>
+          <button
+            onClick={() => handleDifficultyChange("hard")}
+            className={difficult === "hard" ? "active" : ""}
+          >
+            Hard
+          </button>
         </div>
 
         <div className="habilities">
           <h2>
-            Habilities <span>🔎</span>{" "}
+            Habilities{" "}
+            <span className="lupa" onClick={handleLupa}>
+              🔎
+            </span>{" "}
           </h2>
           <button
             className="hab"
@@ -266,6 +365,18 @@ function App() {
             Random match
           </button>
         </div>
+        {habilitiesDescription ? (
+          <div className="description">
+            <p>
+              <span className="span">Flip: </span>Flip all cards for a short
+              time
+            </p>
+            <hr></hr>
+            <p>
+              <span className="span">Random Match: </span>Match a random pair
+            </p>
+          </div>
+        ) : null}
         <button className="restart" onClick={HandleClick}>
           {" "}
           Restart

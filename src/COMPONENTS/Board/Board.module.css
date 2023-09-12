@@ -4,6 +4,28 @@
     /* Definir el número de columnas y filas que deseas */
     grid-template-columns: repeat(5, 1fr); /* Esto crea 4 columnas */
     grid-gap: 10px; /* Espacio entre cada celda del grid */
-    max-width: 50%;
+    padding: 20px;
+    border-radius: 10px;
     margin: 0px auto;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
+.easy {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  
+.medium {
+    grid-template-columns: repeat(7, 1fr);
+  }
+  
+.hard {
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  
+  
+  
+  
