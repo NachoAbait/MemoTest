@@ -104,7 +104,7 @@
 .dificult button{
   height: 50px;
   width: 30%;
-  margin-top: 5px;
+  margin-top: 10px;
   margin-right: 1%;
   padding: 10px;
   border-radius: 10px;
@@ -138,7 +138,7 @@
   height: 60px;
   width: 40%;
   margin-right: 10px;
-  margin-top: 5px;
+  margin-top: 10px;
   padding: 10px;
   border-radius: 10px;
   justify-content: center;
